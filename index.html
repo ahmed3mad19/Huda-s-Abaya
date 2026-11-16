@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Abayas – Huda's Abaya</title>
   <link rel="icon" type="image/jpeg" href="assets/LOGO.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -781,6 +781,49 @@
         max-width: 85vw !important;
       }
     }
+
+    /* منع تمدد الصفحة أفقياً وظهور فراغ على اليمين */
+   html, body {
+   max-width: 100%;
+   overflow-x: hidden !important;
+   width: 100%;
+   }
+
+   .marquee-container,
+   .site-header,
+   .collection-header,
+   .collection-toolbar,
+   .grid-container,
+   .bottom-size-guide,
+   .site-footer {
+   width: 100%;
+   max-width: 100%;
+   box-sizing: border-box;
+   }
+
+   @media (max-width: 768px) {
+   .site-header {
+    padding: 10px 12px !important;
+   }
+   .site-logo {
+    font-size: 17px !important;
+    white-space: nowrap;
+   }
+   .header-right {
+    gap: 6px !important;
+   }
+   .header-theme-btn {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+   }
+   /* إخفاء كلمة Log in على الموبايل عشان الهيدر ميبقاش زحمة */
+   .user-badge-name {
+    display: none !important;
+   }
+   .collection-header {
+    padding: 90px 15px !important;
+   }
+  }
   </style>
 </head>
 <body>
