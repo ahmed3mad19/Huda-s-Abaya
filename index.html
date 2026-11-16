@@ -717,6 +717,70 @@
     .footer-socials a { color: var(--colorText); text-decoration: none; font-size: 14px; }
     body.dark-mode .footer-socials a { color: #ccc; }
     .footer-copy { font-size: 12px; color: #777; }
+  
+    /* إصلاحات التناسق لعرض الموبايل */
+    @media (max-width: 768px) {
+      /* الهيدر والعناصر فوق */
+      .site-header {
+        padding: 10px 15px;
+      }
+      .site-logo {
+        font-size: 20px !important;
+      }
+      .header-right {
+        gap: 8px !important;
+      }
+
+      /* البانر الرئيسي (Collection Header) */
+      .collection-header {
+        padding: 100px 15px !important;
+        margin-bottom: 15px;
+      }
+      .collection-title {
+        font-size: 24px !important;
+      }
+
+      /* شريط الفلتر والبحث */
+      .collection-toolbar {
+        padding: 10px 15px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .toolbar-left {
+        justify-content: space-between;
+      }
+      .sort-select {
+        width: 100%;
+      }
+
+      /* شبكة المنتجات (تعرض منتجين جنب بعض بمسافة مريحة) */
+      .grid-container {
+        padding: 0 10px;
+      }
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px 10px !important;
+      }
+
+      /* حجم صور المنتجات والخطوط على الموبايل */
+      .product-title {
+        font-size: 13px !important;
+      }
+      .product-price {
+        font-size: 12px !important;
+      }
+      .quick-add-btn {
+        padding: 7px 10px !important;
+        font-size: 11px !important;
+      }
+
+      /* قوائم الـ Drawers الجانبية تملى الشاشة بشكل أنسب */
+      .drawer {
+        width: 100% !important;
+        max-width: 85vw !important;
+      }
+    }
   </style>
 </head>
 <body>
