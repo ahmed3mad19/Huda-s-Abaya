@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abayas – Huda's Abaya</title>
+  <link rel="icon" type="image/jpeg" href="assets/LOGO.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Trirong:ital,wght@0,400;0,600;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -93,6 +94,65 @@
 
     .icon-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
 
+    /* زرار تبديل الوضع الليلي والنهاري في الهيدر */
+    .header-theme-btn {
+      background: transparent;
+      border: 1px solid var(--colorBorder);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      color: var(--colorText);
+    }
+
+    .header-theme-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /* ألوان الوضع الليلي (Dark Mode) */
+    body.dark-mode {
+      background-color: #121212 !important;
+      color: #f5f5f5 !important;
+    }
+
+    body.dark-mode .site-header,
+    body.dark-mode .collection-toolbar,
+    body.dark-mode .drawer,
+    body.dark-mode .product-card,
+    body.dark-mode .site-footer {
+      background-color: #1e1e1e !important;
+      color: #ffffff !important;
+      border-color: #333 !important;
+    }
+
+    body.dark-mode .header-theme-btn {
+      border-color: #444;
+      color: #ffffff;
+    }
+
+    body.dark-mode .header-theme-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .icon-btn, 
+    body.dark-mode .site-logo, 
+    body.dark-mode .collection-title,
+    body.dark-mode .product-title,
+    body.dark-mode .product-price {
+      color: #ffffff !important;
+    }
+
+    body.dark-mode input,
+    body.dark-mode select {
+      background-color: #2a2a2a !important;
+      color: #ffffff !important;
+      border-color: #444 !important;
+    }
+
     .user-badge-name {
       font-family: 'Cairo', sans-serif;
       font-size: 12px;
@@ -120,6 +180,11 @@
       font-family: sans-serif;
     }
 
+    body.dark-mode .cart-count {
+      background-color: #ffffff;
+      color: #111111;
+    }
+
     .site-logo {
       font-family: var(--typeHeaderPrimary);
       font-size: 28px;
@@ -134,7 +199,6 @@
     .collection-header {
       text-align: center;
       padding: 180px 50px;
-      /* حطّي هنا مسار الصورة بتاعتك جوه فولدر assets أو رابط الصورة */
       background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('assets/LOGO.jpg');
       background-size: cover;
       background-position: center 20%;
@@ -188,9 +252,17 @@
       transition: border-color 0.2s;
     }
 
+    body.dark-mode .filter-trigger-btn, 
+    body.dark-mode .size-guide-trigger {
+      background: #2a2a2a;
+      color: #fff;
+      border-color: #444;
+    }
+
     .filter-trigger-btn:hover, .size-guide-trigger:hover { border-color: #111; }
 
     .product-count { color: #555; }
+    body.dark-mode .product-count { color: #aaa; }
 
     .sort-select {
       border: 1px solid var(--colorBorder);
@@ -257,7 +329,6 @@
       z-index: 2;
     }
 
-    /* صور مصغرة تحت المنتج للتبديل بينها */
     .product-thumbs {
       display: flex;
       gap: 6px;
@@ -296,13 +367,20 @@
       transition: background 0.2s;
     }
 
+    body.dark-mode .quick-add-btn {
+      background-color: #fff;
+      color: #111;
+      border-color: #fff;
+    }
+
     .quick-add-btn:hover { background-color: #333; }
     .quick-add-btn:disabled { background-color: #ccc; border-color: #ccc; color: #666; cursor: not-allowed; }
 
     .product-title { font-size: 15px; font-weight: 400; color: var(--colorText); margin-bottom: 4px; }
     .product-price { font-size: 14px; color: #555; }
+    body.dark-mode .product-price { color: #bbb; }
 
-    /* Bottom Size Guide Section (Black & English) */
+    /* Bottom Size Guide Section */
     .bottom-size-guide {
       background-color: #111111;
       color: #ffffff;
@@ -476,6 +554,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
+    body.dark-mode .nav-list a { color: #f5f5f5; }
 
     /* Account & Auth UI */
     .auth-box {
@@ -506,6 +585,7 @@
       color: #111;
       border-bottom-color: #111;
     }
+    body.dark-mode .auth-tab.active { color: #fff; border-bottom-color: #fff; }
 
     .loyalty-card {
       background: #111;
@@ -538,6 +618,7 @@
 
     .cart-qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
     .qty-btn { width: 24px; height: 24px; border: 1px solid var(--colorBorder); background: #fff; cursor: pointer; }
+    body.dark-mode .qty-btn { background: #2a2a2a; color: #fff; border-color: #444; }
 
     .cod-form {
       margin-top: 15px;
@@ -558,6 +639,7 @@
       text-align: center;
       font-weight: 600;
     }
+    body.dark-mode .cod-badge { background-color: #2a2a2a; color: #fff; border-color: #444; }
 
     .cod-input {
       width: 100%;
@@ -574,6 +656,7 @@
       border-top: 1px solid var(--colorBorder);
       background-color: #fafafa;
     }
+    body.dark-mode .drawer-footer { background-color: #1a1a1a; }
 
     .subtotal-row {
       display: flex;
@@ -596,6 +679,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+    body.dark-mode .checkout-btn { background-color: #ffffff; color: #111111; }
 
     .checkout-btn:hover { background-color: #333333; }
 
@@ -611,6 +695,7 @@
       font-size: 13px;
       cursor: pointer;
     }
+    body.dark-mode .secondary-btn { background: #2a2a2a; color: #fff; border-color: #444; }
 
     /* Footer */
     .site-footer {
@@ -630,6 +715,7 @@
 
     .footer-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
     .footer-socials a { color: var(--colorText); text-decoration: none; font-size: 14px; }
+    body.dark-mode .footer-socials a { color: #ccc; }
     .footer-copy { font-size: 12px; color: #777; }
   </style>
 </head>
@@ -661,6 +747,9 @@
     <a href="#" class="site-logo">Huda's Abaya</a>
 
     <div class="header-right">
+      <!-- زرار تبديل الوضع الليلي/النهاري -->
+      <button id="themeToggle" class="header-theme-btn" aria-label="Toggle Theme">🌙</button>
+
       <button class="icon-btn" onclick="openDrawer('accountDrawer')" aria-label="Account">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -720,7 +809,7 @@
     <div class="products-grid" id="productsGrid"></div>
   </main>
 
-  <!-- Bottom Size Guide Section (Black & English) -->
+  <!-- Bottom Size Guide Section -->
   <section class="bottom-size-guide">
     <h2 class="bottom-size-title">Size Guide</h2>
     <p class="bottom-size-desc">Find your perfect fit by referencing our standard abaya measurements below based on height and weight:</p>
@@ -805,21 +894,21 @@
       <button class="icon-btn" onclick="closeAllDrawers()">✕</button>
     </div>
     <div class="drawer-body">
-      <div style="font-family:'Cairo',sans-serif; direction:ltr; text-align:left; font-size:14px; color:#333;">
+      <div style="font-family:'Cairo',sans-serif; direction:ltr; text-align:left; font-size:14px; color:inherit;">
         <p style="margin-bottom:15px;">Find your perfect fit by referencing our standard abaya measurements below:</p>
         <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
           <thead>
-            <tr style="background:#f4f4f0;">
-              <th style="border:1px solid #ddd; padding:8px; text-align:center;">Size</th>
-              <th style="border:1px solid #ddd; padding:8px; text-align:center;">Height</th>
-              <th style="border:1px solid #ddd; padding:8px; text-align:center;">Weight</th>
+            <tr style="background:rgba(0,0,0,0.05);">
+              <th style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">Size</th>
+              <th style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">Height</th>
+              <th style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">Weight</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="border:1px solid #ddd; padding:8px; text-align:center;"><strong>S</strong></td><td style="border:1px solid #ddd; padding:8px; text-align:center;">150-155</td><td style="border:1px solid #ddd; padding:8px; text-align:center;">50-60</td></tr>
-            <tr><td style="border:1px solid #ddd; padding:8px; text-align:center;"><strong>M</strong></td><td style="border:1px solid #ddd; padding:8px; text-align:center;">156-162</td><td style="border:1px solid #ddd; padding:8px; text-align:center;">60-70</td></tr>
-            <tr><td style="border:1px solid #ddd; padding:8px; text-align:center;"><strong>L</strong></td><td style="border:1px solid #ddd; padding:8px; text-align:center;">163-168</td><td style="border:1px solid #ddd; padding:8px; text-align:center;">70-80</td></tr>
-            <tr><td style="border:1px solid #ddd; padding:8px; text-align:center;"><strong>XL</strong></td><td style="border:1px solid #ddd; padding:8px; text-align:center;">169-175</td><td style="border:1px solid #ddd; padding:8px; text-align:center;">80-95</td></tr>
+            <tr><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;"><strong>S</strong></td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">150-155</td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">50-60</td></tr>
+            <tr><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;"><strong>M</strong></td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">156-162</td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">60-70</td></tr>
+            <tr><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;"><strong>L</strong></td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">163-168</td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">70-80</td></tr>
+            <tr><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;"><strong>XL</strong></td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">169-175</td><td style="border:1px solid var(--colorBorder); padding:8px; text-align:center;">80-95</td></tr>
           </tbody>
         </table>
       </div>
@@ -860,15 +949,15 @@
       <div class="filter-group">
         <span class="filter-group-title">Color</span>
         <div class="color-swatches">
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Black" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#111;"></span> Black</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Beige" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#d8c8b8;"></span> Beige</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Navy" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#1b2a4a;"></span> Navy</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Olive" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4b5320;"></span> Olive</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="White" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#fffffe; border:1px solid #ccc;"></span> White</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Red" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#ec1010;"></span> Red</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Brown" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#703505;"></span> Brown</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Babyblue" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4a78b4;"></span> Babyblue</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="Violet" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#641b54;"></span> Violet</label>        
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLACK" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#111;"></span> BLACK</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="STONEGRAY" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#d8c8b8;"></span> STONEGRAY</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#1b2a4a;"></span> BLUE</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="GREEN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4b5320;"></span> GREEN</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="WHITE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#fffffe; border:1px solid #ccc;"></span> WHITE</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="RED" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#ec1010;"></span> RED</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BROWN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#703505;"></span> BROWN</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BABY BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4a78b4;"></span> BABY BLUE</label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="PURPLE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#641b54;"></span> PURPLE</label>           
         </div>
       </div>
     </div>
@@ -904,7 +993,7 @@
       <button class="checkout-btn" onclick="submitCODOrder()">تأكيد الطلب (الدفع عند الاستلام)</button>
     </div>
   </aside>
-
+ 
   <script>
     // مصفوفة المنتجات (مربوطة بصور الـ assets المتعددة والمفردة)
     const productsData = [
@@ -1269,6 +1358,33 @@
 
     renderAccountUI();
     applyFiltersAndSort();
-  </script>
+
+   </script>
+    
+   <!-- JavaScript الخاص بزرار الوضع الليلي/النهاري -->
+ <script>
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const bodyElement = document.body;
+
+  // التحقق من الاختيار المحفوظ مسبقاً
+  if (localStorage.getItem('theme') === 'dark') {
+    bodyElement.classList.add('dark-mode');
+    if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      bodyElement.classList.toggle('dark-mode');
+      
+      if (bodyElement.classList.contains('dark-mode')) {
+        themeToggleBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  }
+</script>
 </body>
 </html>
