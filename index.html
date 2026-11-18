@@ -290,10 +290,13 @@
 
     @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 768px) {
-      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
-      .site-logo { font-size: 21px; }
-      .collection-title { font-size: 28px; }
-      .product-count { display: none; }
+      .products-grid { 
+         grid-template-columns: 1fr !important; 
+         gap: 20px 12px !important; 
+        }
+  .site-logo { font-size: 21px; }
+  .collection-title { font-size: 28px; }
+  .product-count { display: none; }
     }
 
     .product-card { display: flex; flex-direction: column; text-align: center; }
@@ -720,110 +723,48 @@
   
     /* إصلاحات التناسق لعرض الموبايل */
     @media (max-width: 768px) {
-      /* الهيدر والعناصر فوق */
-      .site-header {
-        padding: 10px 15px;
-      }
-      .site-logo {
-        font-size: 20px !important;
-      }
-      .header-right {
-        gap: 8px !important;
-      }
-
-      /* البانر الرئيسي (Collection Header) */
-      .collection-header {
-        padding: 100px 15px !important;
-        margin-bottom: 15px;
-      }
-      .collection-title {
-        font-size: 24px !important;
-      }
-
-      /* شريط الفلتر والبحث */
-      .collection-toolbar {
-        padding: 10px 15px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-      }
-      .toolbar-left {
-        justify-content: space-between;
-      }
-      .sort-select {
-        width: 100%;
-      }
-
-      /* شبكة المنتجات (تعرض منتجين جنب بعض بمسافة مريحة) */
-      .grid-container {
-        padding: 0 10px;
-      }
-      .products-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px 10px !important;
-      }
-
-      /* حجم صور المنتجات والخطوط على الموبايل */
-      .product-title {
-        font-size: 13px !important;
-      }
-      .product-price {
-        font-size: 12px !important;
-      }
-      .quick-add-btn {
-        padding: 7px 10px !important;
-        font-size: 11px !important;
-      }
-
-      /* قوائم الـ Drawers الجانبية تملى الشاشة بشكل أنسب */
-      .drawer {
-        width: 100% !important;
-        max-width: 85vw !important;
-      }
+      .site-header { padding: 10px 15px; }
+      .site-logo { font-size: 20px !important; }
+      .header-right { gap: 8px !important; }
+      .collection-header { padding: 100px 15px !important; margin-bottom: 15px; }
+      .collection-title { font-size: 24px !important; }
+      .collection-toolbar { padding: 10px 15px; flex-direction: column; align-items: stretch; gap: 10px; }
+      .toolbar-left { justify-content: space-between; }
+      .sort-select { width: 100%; }
+      .grid-container { padding: 0 10px; }
+      .products-grid { grid-template-columns: 1fr !important; gap: 15px 10px !important; }
+      .product-title { font-size: 13px !important; }
+      .product-price { font-size: 12px !important; }
+      .quick-add-btn { padding: 7px 10px !important; font-size: 11px !important; }
+      .drawer { width: 100% !important; max-width: 85vw !important; }
     }
 
-    /* منع تمدد الصفحة أفقياً وظهور فراغ على اليمين */
-   html, body {
-   max-width: 100%;
-   overflow-x: hidden !important;
-   width: 100%;
-   }
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      width: 100%;
+    }
 
-   .marquee-container,
-   .site-header,
-   .collection-header,
-   .collection-toolbar,
-   .grid-container,
-   .bottom-size-guide,
-   .site-footer {
-   width: 100%;
-   max-width: 100%;
-   box-sizing: border-box;
-   }
+    .marquee-container,
+    .site-header,
+    .collection-header,
+    .collection-toolbar,
+    .grid-container,
+    .bottom-size-guide,
+    .site-footer {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
 
-   @media (max-width: 768px) {
-   .site-header {
-    padding: 10px 12px !important;
-   }
-   .site-logo {
-    font-size: 17px !important;
-    white-space: nowrap;
-   }
-   .header-right {
-    gap: 6px !important;
-   }
-   .header-theme-btn {
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-   }
-   /* إخفاء كلمة Log in على الموبايل عشان الهيدر ميبقاش زحمة */
-   .user-badge-name {
-    display: none !important;
-   }
-   .collection-header {
-    padding: 90px 15px !important;
-   }
-  }
+    @media (max-width: 768px) {
+      .site-header { padding: 10px 12px !important; }
+      .site-logo { font-size: 17px !important; white-space: nowrap; }
+      .header-right { gap: 6px !important; }
+      .header-theme-btn { padding: 4px 8px !important; font-size: 12px !important; }
+      .user-badge-name { display: none !important; }
+      .collection-header { padding: 90px 15px !important; }
+    }
   </style>
 </head>
 <body>
@@ -854,7 +795,6 @@
     <a href="#" class="site-logo">Huda's Abaya</a>
 
     <div class="header-right">
-      <!-- زرار تبديل الوضع الليلي/النهاري -->
       <button id="themeToggle" class="header-theme-btn" aria-label="Toggle Theme">🌙</button>
 
       <button class="icon-btn" onclick="openDrawer('accountDrawer')" aria-label="Account">
@@ -901,7 +841,7 @@
       </button>
     </div>
 
-    <span class="product-count" id="productCount">17 products</span>
+    <span class="product-count" id="productCount">0 products</span>
 
     <select id="sortSelect" class="sort-select" onchange="applyFiltersAndSort()">
       <option value="featured">Featured</option>
@@ -931,30 +871,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><strong>S</strong></td>
-          <td>150 - 155 cm</td>
-          <td>50 - 60 kg</td>
-          <td>38 cm</td>
-        </tr>
-        <tr>
-          <td><strong>M</strong></td>
-          <td>156 - 162 cm</td>
-          <td>60 - 70 kg</td>
-          <td>40 cm</td>
-        </tr>
-        <tr>
-          <td><strong>L</strong></td>
-          <td>163 - 168 cm</td>
-          <td>70 - 80 kg</td>
-          <td>42 cm</td>
-        </tr>
-        <tr>
-          <td><strong>XL</strong></td>
-          <td>169 - 175 cm</td>
-          <td>80 - 95 kg</td>
-          <td>44 cm</td>
-        </tr>
+        <tr><td><strong>S</strong></td><td>150 - 155 cm</td><td>50 - 60 kg</td><td>38 cm</td></tr>
+        <tr><td><strong>M</strong></td><td>156 - 162 cm</td><td>60 - 70 kg</td><td>40 cm</td></tr>
+        <tr><td><strong>L</strong></td><td>163 - 168 cm</td><td>70 - 80 kg</td><td>42 cm</td></tr>
+        <tr><td><strong>XL</strong></td><td>169 - 175 cm</td><td>80 - 95 kg</td><td>44 cm</td></tr>
       </tbody>
     </table>
   </section>
@@ -983,7 +903,7 @@
     <div class="drawer-body">
       <ul class="nav-list">
         <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">Home</a></li>
-        <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">All Abayas (17)</a></li>
+        <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">All Abayas</a></li>
         <li><a href="#" onclick="closeAllDrawers(); openDrawer('sizeGuideDrawer');">Size Guide</a></li>
         <li><a href="#" onclick="closeAllDrawers(); openDrawer('accountDrawer');">My Account & Orders</a></li>
         <li><a href="https://www.instagram.com/hudas__abaya/" target="_blank">Instagram</a></li>
@@ -1102,27 +1022,41 @@
   </aside>
  
   <script>
-    // مصفوفة المنتجات (مربوطة بصور الـ assets المتعددة والمفردة)
-    const productsData = [
-      { id: 1, title: "BLACK", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "BLACK", images: ["assets/BLACK.jpg", "assets/BLACK0.jpg", "assets/BLACK1.jpg", "assets/BLACK2.jpg", "assets/BLACK3.jpg"] },
-      { id: 2, title: "WHITE", price: 1500, inStock: true, sizes: ["M", "L", "XL"], color: "WHITE", images: ["assets/WHITE1.jpg", "assets/WHITE.jpg", "assets/WHITE0.jpg", "assets/WHITE2.jpg", "assets/WHITE3.jpg"] },
-      { id: 3, title: "DARK", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "DARK", images: ["assets/DARK.jpg", "assets/DARK0.jpg", "assets/DARK1.jpg", "assets/DARK2.jpg"] },
-      { id: 4, title: "STONE GRAY", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "STONEGRAY", images: ["assets/WHITINING.jpg", "assets/WHITINING0.jpg", "assets/WHITINING1.jpg", "assets/WHITINING2.jpg"] },
-      { id: 5, title: "RED", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "RED", images: ["assets/RED.jpg", "assets/RED0.jpg", "assets/RED1.jpg", "assets/RED3.jpg", "assets/RED4.jpg"] },
-      { id: 6, title: "VERY BLACK", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "VERYBLACK", images: ["assets/VERYBLACK.jpg", "assets/VERYBLACK0.jpg", "assets/VERYBLACK1.jpg", "assets/VERYBLACK2.jpg"] },
-      { id: 7, title: "PEARL GRAY", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "PEARL GRAY", images: ["assets/WHI.jpg", "assets/WHI0.jpg", "assets/WHI1.jpg", "assets/WHI2.jpg"] },
-      { id: 8, title: "GRAY SCARF", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "GRAYSCARF", images: ["assets/GRAYSCARF.jpg", "assets/GRAYSCARF0.jpg", "assets/GRAYSCARF1.jpg", "assets/GRAYSCARF2.jpg", "assets/GRAYSCARF3.jpg", "assets/GRAYSCARF4.jpg"] },
-      { id: 9, title: "PURPLE", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "PURPLE", images: ["assets/PURPLE.jpg", "assets/PURPLE0.jpg", "assets/PURPLE1.jpg", "assets/PURPLE2.jpg"] },
-      { id: 10, title: "PINK", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "PINK", images: ["assets/PINK.jpg", "assets/PINK0.jpg", "assets/PINK1.jpg"] },
-      { id: 11, title: "BROWN", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "BROWN", images: ["assets/BROWN.jpg", "assets/BROWN0.jpg", "assets/BROWN1.jpg", "assets/BROWN2.jpg", "assets/BROWN3.jpg", "assets/BROWN4.jpg"] },
-      { id: 12, title: "BROWNI", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "BROWNI", images: ["assets/BROWNI.jpg", "assets/BROWNI0.jpg", "assets/BROWNI1.jpg"] },
-      { id: 13, title: "BABY BLUE", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "BABY BLUE", images: ["assets/BABYBLUE.jpg", "assets/BABYBLUE0.jpg", "assets/BABYBLUE1.jpg", "assets/BABYBLUE2.jpg"] },
-      { id: 14, title: "BLUE", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "BLUE", images: ["assets/BLUE.jpg", "assets/BLUE0.jpg", "assets/BLUE1.jpg", "assets/BLUE2.jpg", "assets/BLUE3.jpg"] },
-      { id: 15, title: "GREEN", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "GREEN", images: ["assets/GREEN.jpg", "assets/GREEN0.jpg", "assets/GREEN1.jpg", "assets/GREEN2.jpg"] },
-      { id: 16, title: "A7MR", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "A7MR", images: ["assets/A7MR.jpg", "assets/A7MR0.jpg", "assets/A7MR1.jpg", "assets/A7MR2.jpg", "assets/A7MR3.jpg"] },
-      { id: 17, title: "GRAY", price: 1500, inStock: true, sizes: ["S", "M", "L", "XL"], color: "GRAY", images: ["assets/GRAY.jpg", "assets/GRAY0.jpg", "assets/GRAY1.jpg", "assets/GRAY2.jpg"] },
+    // المنتجات الأساسية مع تحديد كمية لكل قطعة (stock)
+    const initialProducts = [
+      { id: 1, title: "BLACK", price: 1500, stock: 5, sizes: ["S", "M", "L", "XL"], color: "BLACK", images: ["assets/BLACK.jpg", "assets/BLACK0.jpg", "assets/BLACK1.jpg", "assets/BLACK2.jpg", "assets/BLACK3.jpg"] },
+      { id: 2, title: "WHITE", price: 1500, stock: 3, sizes: ["M", "L", "XL"], color: "WHITE", images: ["assets/WHITE1.jpg", "assets/WHITE.jpg", "assets/WHITE0.jpg", "assets/WHITE2.jpg", "assets/WHITE3.jpg"] },
+      { id: 3, title: "DARK", price: 1500, stock: 4, sizes: ["S", "M", "L", "XL"], color: "DARK", images: ["assets/DARK.jpg", "assets/DARK0.jpg", "assets/DARK1.jpg", "assets/DARK2.jpg"] },
+      { id: 4, title: "STONE GRAY", price: 1500, stock: 2, sizes: ["S", "M", "L", "XL"], color: "STONEGRAY", images: ["assets/WHITINING.jpg", "assets/WHITINING0.jpg", "assets/WHITINING1.jpg", "assets/WHITINING2.jpg"] },
+      { id: 5, title: "RED", price: 1500, stock: 6, sizes: ["S", "M", "L", "XL"], color: "RED", images: ["assets/RED.jpg", "assets/RED0.jpg", "assets/RED1.jpg", "assets/RED3.jpg", "assets/RED4.jpg"] },
+      { id: 6, title: "VERY BLACK", price: 1500, stock: 5, sizes: ["S", "M", "L", "XL"], color: "VERYBLACK", images: ["assets/VERYBLACK.jpg", "assets/VERYBLACK0.jpg", "assets/VERYBLACK1.jpg", "assets/VERYBLACK2.jpg"] },
+      { id: 7, title: "PEARL GRAY", price: 1500, stock: 4, sizes: ["S", "M", "L", "XL"], color: "PEARL GRAY", images: ["assets/WHI.jpg", "assets/WHI0.jpg", "assets/WHI1.jpg", "assets/WHI2.jpg"] },
+      { id: 8, title: "GRAY SCARF", price: 1500, stock: 3, sizes: ["S", "M", "L", "XL"], color: "GRAYSCARF", images: ["assets/GRAYSCARF.jpg", "assets/GRAYSCARF0.jpg", "assets/GRAYSCARF1.jpg", "assets/GRAYSCARF2.jpg", "assets/GRAYSCARF3.jpg", "assets/GRAYSCARF4.jpg"] },
+      { id: 9, title: "PURPLE", price: 1500, stock: 5, sizes: ["S", "M", "L", "XL"], color: "PURPLE", images: ["assets/PURPLE.jpg", "assets/PURPLE0.jpg", "assets/PURPLE1.jpg", "assets/PURPLE2.jpg"] },
+      { id: 10, title: "PINK", price: 1500, stock: 4, sizes: ["S", "M", "L", "XL"], color: "PINK", images: ["assets/PINK.jpg", "assets/PINK0.jpg", "assets/PINK1.jpg"] },
+      { id: 11, title: "BROWN", price: 1500, stock: 5, sizes: ["S", "M", "L", "XL"], color: "BROWN", images: ["assets/BROWN.jpg", "assets/BROWN0.jpg", "assets/BROWN1.jpg", "assets/BROWN2.jpg", "assets/BROWN3.jpg", "assets/BROWN4.jpg"] },
+      { id: 12, title: "BROWNI", price: 1500, stock: 3, sizes: ["S", "M", "L", "XL"], color: "BROWNI", images: ["assets/BROWNI.jpg", "assets/BROWNI0.jpg", "assets/BROWNI1.jpg"] },
+      { id: 13, title: "BABY BLUE", price: 1500, stock: 4, sizes: ["S", "M", "L", "XL"], color: "BABY BLUE", images: ["assets/BABYBLUE.jpg", "assets/BABYBLUE0.jpg", "assets/BABYBLUE1.jpg", "assets/BABYBLUE2.jpg"] },
+      { id: 14, title: "BLUE", price: 1500, stock: 5, sizes: ["S", "M", "L", "XL"], color: "BLUE", images: ["assets/BLUE.jpg", "assets/BLUE0.jpg", "assets/BLUE1.jpg", "assets/BLUE2.jpg", "assets/BLUE3.jpg"] },
+      { id: 15, title: "GREEN", price: 1500, stock: 2, sizes: ["S", "M", "L", "XL"], color: "GREEN", images: ["assets/GREEN.jpg", "assets/GREEN0.jpg", "assets/GREEN1.jpg", "assets/GREEN2.jpg"] },
+      { id: 16, title: "A7MR", price: 1500, stock: 4, sizes: ["S", "M", "L", "XL"], color: "A7MR", images: ["assets/A7MR.jpg", "assets/A7MR0.jpg", "assets/A7MR1.jpg", "assets/A7MR2.jpg", "assets/A7MR3.jpg"] },
+      { id: 17, title: "GRAY", price: 1500, stock: 3, sizes: ["S", "M", "L", "XL"], color: "GRAY", images: ["assets/GRAY.jpg", "assets/GRAY0.jpg", "assets/GRAY1.jpg", "assets/GRAY2.jpg"] }
     ];
 
+    // نظام جلب وتخزين المنتجات بحيث لو ضفتِ منتج جديد يفضل محفوظ
+    function getProductsData() {
+      const saved = localStorage.getItem('hudas_products_db');
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) { return initialProducts; }
+      }
+      return initialProducts;
+    }
+
+    function saveProductsData(prods) {
+      localStorage.setItem('hudas_products_db', JSON.stringify(prods));
+    }
+
+    let productsData = getProductsData();
     let cart = [];
     let authMode = 'login';
 
@@ -1136,7 +1070,8 @@
       const sortValue = document.getElementById('sortSelect').value;
 
       let filtered = productsData.filter(p => {
-        if (inStockOnly && !p.inStock) return false;
+        const inStock = (p.stock > 0);
+        if (inStockOnly && !inStock) return false;
         if (p.price < minPrice || p.price > maxPrice) return false;
         if (selectedSizes.length > 0 && !selectedSizes.some(s => p.sizes.includes(s))) return false;
         if (selectedColors.length > 0 && !selectedColors.includes(p.color)) return false;
@@ -1160,7 +1095,6 @@
       applyFiltersAndSort();
     }
 
-    // دالة تبديل الصور الرئيسية عند الضغط على أي صورة مصغرة
     function changeMainImage(imgElement, newSrc) {
       const wrap = imgElement.closest('.product-card');
       const mainImg = wrap.querySelector('.main-product-img');
@@ -1178,11 +1112,10 @@
         return;
       }
       grid.innerHTML = list.map(product => {
-        // التأكد من أن الصور عبارة عن مصفوفة سليمة
-        const imagesList = Array.isArray(product.images) ? product.images : [product.images || 'https://via.placeholder.com/600x900'];
+        const inStock = product.stock > 0;
+        const imagesList = Array.isArray(product.images) && product.images.length > 0 ? product.images : ['assets/LOGO.jpg'];
         const firstImg = imagesList[0];
 
-        // توليد الصور المصغرة لو فيه أكتر من صورة واحدة للمنتج
         const thumbsHTML = imagesList.length > 1 ? `
           <div class="product-thumbs">
             ${imagesList.map((img, idx) => `
@@ -1194,15 +1127,15 @@
         return `
           <div class="product-card">
             <div class="product-image-wrap">
-              ${!product.inStock ? '<span class="sold-out-tag">Sold Out</span>' : ''}
+              ${!inStock ? '<span class="sold-out-tag">Sold Out</span>' : ''}
               <img src="${firstImg}" class="main-product-img" alt="${product.title}">
             </div>
             ${thumbsHTML}
-            <button class="quick-add-btn" ${!product.inStock ? 'disabled' : ''} onclick="addToCart(${product.id})">
-              ${product.inStock ? '+ Add to Bag' : 'Sold Out'}
+            <button class="quick-add-btn" ${!inStock ? 'disabled' : ''} onclick="addToCart(${product.id})">
+              ${inStock ? '+ Add to Bag' : 'Sold Out'}
             </button>
             <h3 class="product-title" style="margin-top: 8px;">${product.title}</h3>
-            <div class="product-price">LE ${product.price.toLocaleString()}.00</div>
+            <div class="product-price">LE ${product.price.toLocaleString()}.00 ${inStock ? `<span style="font-size:11px; color:#888;">(متبقي: ${product.stock})</span>` : ''}</div>
           </div>
         `;
       }).join('');
@@ -1223,10 +1156,72 @@
       return db[phone] || null;
     }
 
+    // واجهة الحساب مع خانة دخول الأدمن السري لإضافة المنتجات
     function renderAccountUI() {
       const user = getCurrentUser();
       const body = document.getElementById('accountBody');
       const headerLabel = document.getElementById('headerUserLabel');
+
+      if (user && user.isAdmin) {
+        headerLabel.textContent = "Admin 👑";
+        
+        const existingProductsHTML = productsData.map(p => `
+          <div style="border:1px solid var(--colorBorder); padding:10px; border-radius:6px; margin-bottom:10px; background:rgba(0,0,0,0.02);">
+            <div style="font-weight:700; font-size:13px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+              <span>المنتج: ${p.title}</span>
+              <button type="button" onclick="deleteProduct('${p.id}')" style="background:none; border:none; color:#d9534f; cursor:pointer; font-size:12px;">حذف 🗑️</button>
+            </div>
+            
+            <div style="margin-bottom:8px;">
+              <label style="font-size:10px; display:block;">اسم العباية:</label>
+              <input type="text" id="editTitle_${p.id}" value="${p.title}" class="cod-input" style="margin-bottom:0; padding:6px;">
+            </div>
+
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div style="flex:1;">
+                <label style="font-size:10px; display:block;">السعر (LE):</label>
+                <input type="number" id="editPrice_${p.id}" value="${p.price}" class="cod-input" style="margin-bottom:0; padding:6px;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:10px; display:block;">الكمية:</label>
+                <input type="number" id="editStock_${p.id}" value="${p.stock}" class="cod-input" style="margin-bottom:0; padding:6px;">
+              </div>
+              <button type="button" onclick="updateProduct('${p.id}')" style="background:#111; color:#fff; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; font-size:12px; margin-top:14px;">حفظ</button>
+            </div>
+          </div>
+        `).join('');
+
+        body.innerHTML = `
+          <div class="auth-box">
+            <div style="background:#111; color:#fff; padding:15px; border-radius:8px; margin-bottom:15px; text-align:center;">
+              <h3 style="color:#e5c158; margin-bottom:5px;">لوحة تحكم الأدمن</h3>
+              <p style="font-size:12px; color:#ccc;">إضافة وتعديل المنتجات والكميات بدون كود</p>
+            </div>
+
+            <h4 style="margin-bottom:10px; font-size:14px;">➕ إضافة عباية جديدة:</h4>
+            <input type="text" id="newTitle" class="cod-input" placeholder="اسم العباية / المنتج *">
+            <input type="number" id="newPrice" class="cod-input" placeholder="السعر (مثلاً 1500) *">
+            <input type="number" id="newStock" class="cod-input" placeholder="الكمية المتاحة (مثلاً 10) *" value="5">
+            <input type="text" id="newColor" class="cod-input" placeholder="لون المنتج (مثلاً BLACK)" value="BLACK">
+            <input type="text" id="newImg1" class="cod-input" placeholder="الصورة الأساسية (1) *" value="assets/">
+            <input type="text" id="newImg2" class="cod-input" placeholder="صورة إضافية (2) - اختياري">
+            <input type="text" id="newImg3" class="cod-input" placeholder="صورة إضافية (3) - اختياري">
+            <input type="text" id="newImg4" class="cod-input" placeholder="صورة إضافية (4) - اختياري">
+            <button class="checkout-btn" onclick="addNewProduct()" style="margin-bottom:20px;">إضافة المنتج للمتجر</button>
+
+            <hr style="border:0; border-top:1px solid var(--colorBorder); margin:15px 0;">
+
+            <h4 style="margin-bottom:10px; font-size:14px;">✏️ تعديل المنتجات الحالية (${productsData.length}):</h4>
+            <div style="max-height:300px; overflow-y:auto; padding-left:4px;">
+              ${existingProductsHTML}
+            </div>
+
+            <button class="secondary-btn" onclick="resetProductsToDefault()" style="border-color:#d9534f; color:#d9534f; margin-top:15px;">إعادة تعيين الكل للافتراضي</button>
+            <button class="secondary-btn" onclick="logoutUser()">تسجيل الخروج من الأدمن</button>
+          </div>
+        `;
+        return;
+      }
 
       if (user) {
         headerLabel.textContent = user.name.split(' ')[0];
@@ -1237,9 +1232,6 @@
               <div class="loyalty-number">${user.ordersCount}</div>
               <div style="font-size:13px;">إجمالي عدد طلباتك السابقة</div>
             </div>
-            <p style="font-size:13px; color:#555; margin-bottom:15px;">
-              بياناتك محفوظة لتسريع الطلب، ويتم إرسال رقم ترتيب طلبك تلقائياً مع كل أوردر.
-            </p>
             <div style="background:#f9f9f9; padding:12px; border-radius:6px; font-size:13px; margin-bottom:15px;">
               <div><strong>الموبايل:</strong> ${user.phone}</div>
               <div><strong>المحافظة:</strong> ${user.city || 'غير مسجل'}</div>
@@ -1264,7 +1256,7 @@
               <input type="text" id="authAddress" class="cod-input" placeholder="العنوان (اختياري)">
               <button class="checkout-btn" onclick="registerUser()">إنشاء الحساب</button>
             ` : `
-              <input type="tel" id="authPhone" class="cod-input" placeholder="رقم الموبايل المسجل *">
+              <input type="tel" id="authPhone" class="cod-input" placeholder="رقم الموبايل أو اسم الأدمن *">
               <input type="password" id="authPass" class="cod-input" placeholder="كلمة المرور *">
               <button class="checkout-btn" onclick="loginUser()">دخول</button>
             `}
@@ -1292,12 +1284,11 @@
 
       const db = getUsersDB();
       if (db[phone]) {
-        alert("هذا الرقم مسجل بالفعل، يمكنك تسجيل الدخول مباشرة.");
-        switchAuthMode('login');
+        alert("هذا الرقم مسجل بالفعل.");
         return;
       }
 
-      db[phone] = { name, phone, pass, city, address, ordersCount: 0 };
+      db[phone] = { name, phone, pass, city, address, ordersCount: 0, isAdmin: false };
       saveUsersDB(db);
       localStorage.setItem('hudas_current_phone', phone);
       renderAccountUI();
@@ -1306,16 +1297,29 @@
     }
 
     function loginUser() {
-      const phone = document.getElementById('authPhone').value.trim();
-      const pass = document.getElementById('authPass').value.trim();
-      const db = getUsersDB();
+      const phoneInput = document.getElementById('authPhone').value.trim();
+      const passInput = document.getElementById('authPass').value.trim();
 
-      if (!db[phone] || db[phone].pass !== pass) {
+      // لو دخلك كأدمن باليوزر والباسورد الثابتين
+      if (phoneInput === 'huda' && passInput === '01116408347') {
+        const adminUser = { name: 'Admin', phone: 'huda', pass: '01116408347', ordersCount: 0, isAdmin: true };
+        const db = getUsersDB();
+        db['huda'] = adminUser;
+        saveUsersDB(db);
+        localStorage.setItem('hudas_current_phone', 'huda');
+        renderAccountUI();
+        closeAllDrawers();
+        alert("أهلاً بكِ يا هدى في لوحة التحكم!");
+        return;
+      }
+
+      const db = getUsersDB();
+      if (!db[phoneInput] || db[phoneInput].pass !== passInput) {
         alert("رقم الموبايل أو كلمة المرور غير صحيحة.");
         return;
       }
 
-      localStorage.setItem('hudas_current_phone', phone);
+      localStorage.setItem('hudas_current_phone', phoneInput);
       renderAccountUI();
       updateCartUI();
     }
@@ -1326,22 +1330,86 @@
       updateCartUI();
     }
 
+    // إضافة منتج جديد من لوحة الأدمن
+    function addNewProduct() {
+      const title = document.getElementById('newTitle').value.trim();
+      const price = parseFloat(document.getElementById('newPrice').value);
+      const stock = parseInt(document.getElementById('newStock').value) || 5;
+      const color = document.getElementById('newColor').value.trim().toUpperCase() || 'BLACK';
+      const img = [ document.getElementById('newImg1').value.trim(),
+                    document.getElementById('newImg2').value.trim(),
+                    document.getElementById('newImg3').value.trim(),
+                    document.getElementById('newImg4').value.trim()
+           ].filter(img => img !== '' && img !== 'assets/');
+
+      if (!title || isNaN(price) || !img) {
+        alert("من فضلك أدخل اسم العباية والسعر وصورة صحيحة.");
+        return;
+      }
+
+      const newProd = {
+        id: Date.now(),
+        title: title,
+        price: price,
+        stock: stock,
+        sizes: ["S", "M", "L", "XL"],
+        color: color,
+        images: images
+      };
+
+      productsData.unshift(newProd);
+      saveProductsData(productsData);
+      applyFiltersAndSort();
+      alert("تم إضافة المنتج بنجاح إلى المتجر!");
+      document.getElementById('newTitle').value = '';
+      document.getElementById('newPrice').value = '';
+    }
+
+    function resetProductsToDefault() {
+      if (confirm("هل أنتِ متأكدة من إرجاع المنتجات للافتراضية؟")) {
+        localStorage.removeItem('hudas_products_db');
+        productsData = getProductsData();
+        applyFiltersAndSort();
+        alert("تمت استعادة المنتجات الأصلية بنجاح.");
+      }
+    }
+
     function addToCart(productId) {
       const product = productsData.find(p => p.id === productId);
+      if (!product || product.stock <= 0) {
+        alert("عذراً، هذا المنتج غير متوفر حالياً (Sold Out).");
+        return;
+      }
+
       const existing = cart.find(item => item.id === productId);
       const imagesList = Array.isArray(product.images) ? product.images : [product.images];
       const mainImage = imagesList[0];
       
+      const currentCartQty = existing ? existing.qty : 0;
+      if (currentCartQty + 1 > product.stock) {
+        alert(`عذراً، الكمية المتاحة في المخزون هي (${product.stock}) فقط.`);
+        return;
+      }
+
       if (existing) existing.qty += 1;
       else cart.push({ ...product, image: mainImage, qty: 1 });
+      
       updateCartUI();
       openDrawer('cartDrawer');
     }
 
     function changeQty(productId, delta) {
       const item = cart.find(i => i.id === productId);
-      if (!item) return;
-      item.qty += delta;
+      const product = productsData.find(p => p.id === productId);
+      if (!item || !product) return;
+
+      const newQty = item.qty + delta;
+      if (newQty > product.stock) {
+        alert(`عذراً، الكمية المتاحة في المخزون هي (${product.stock}) فقط.`);
+        return;
+      }
+
+      item.qty = newQty;
       if (item.qty <= 0) cart = cart.filter(i => i.id !== productId);
       updateCartUI();
     }
@@ -1381,18 +1449,18 @@
         </div>
       `).join('');
 
-      const nextOrderNum = user ? (user.ordersCount + 1) : 1;
+      const nextOrderNum = user && !user.isAdmin ? (user.ordersCount + 1) : 1;
 
       itemsHTML += `
         <div class="cod-form">
           <div class="cod-badge">
             💵 الدفع كاش عند الاستلام (COD)
-            ${user ? `<br><span style="color:#b8860b;">⭐ هذا هو الأوردر رقم (${nextOrderNum}) لحسابك</span>` : `<br><a href="#" onclick="openDrawer('accountDrawer')" style="color:#111; font-size:12px;">سجل دخولك لحفظ عدد طلباتك</a>`}
+            ${user && !user.isAdmin ? `<br><span style="color:#b8860b;">⭐ هذا هو الأوردر رقم (${nextOrderNum}) لحسابك</span>` : ''}
           </div>
-          <input type="text" id="custName" class="cod-input" placeholder="الاسم بالكامل *" value="${user ? user.name : ''}">
-          <input type="tel" id="custPhone" class="cod-input" placeholder="رقم الموبايل / واتساب *" value="${user ? user.phone : ''}">
-          <input type="text" id="custCity" class="cod-input" placeholder="المحافظة والمنطقة *" value="${user && user.city ? user.city : ''}">
-          <input type="text" id="custAddress" class="cod-input" placeholder="العنوان بالتفصيل *" value="${user && user.address ? user.address : ''}">
+          <input type="text" id="custName" class="cod-input" placeholder="الاسم بالكامل *" value="${user && !user.isAdmin ? user.name : ''}">
+          <input type="tel" id="custPhone" class="cod-input" placeholder="رقم الموبايل / واتساب *" value="${user && !user.isAdmin ? user.phone : ''}">
+          <input type="text" id="custCity" class="cod-input" placeholder="المحافظة والمنطقة *" value="${user && !user.isAdmin && user.city ? user.city : ''}">
+          <input type="text" id="custAddress" class="cod-input" placeholder="العنوان بالتفصيل *" value="${user && !user.isAdmin && user.address ? user.address : ''}">
           <input type="text" id="custNotes" class="cod-input" placeholder="المقاس المطلوب (S / M / L / XL) أو ملاحظات">
         </div>
       `;
@@ -1400,6 +1468,7 @@
       body.innerHTML = itemsHTML;
     }
 
+    // إتمام الطلب وتحديث المخزون (خصم الكمية تلقائياً ليظهر Sold Out لو وصلت صفر)
     function submitCODOrder() {
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
@@ -1412,19 +1481,30 @@
         return;
       }
 
+      // خصم الكميات من المخزون لكل منتج تم طلبه
+      cart.forEach(cartItem => {
+        const prod = productsData.find(p => p.id === cartItem.id);
+        if (prod) {
+          prod.stock = Math.max(0, prod.stock - cartItem.qty);
+        }
+      });
+      saveProductsData(productsData);
+      applyFiltersAndSort();
+
       const db = getUsersDB();
       let orderNumberForCustomer = 1;
 
-      if (db[phone]) {
+      if (phone !== 'admin' && db[phone]) {
         db[phone].ordersCount += 1;
         db[phone].city = city;
         db[phone].address = address;
         orderNumberForCustomer = db[phone].ordersCount;
-      } else {
-        db[phone] = { name, phone, pass: "1234", city, address, ordersCount: 1 };
+        saveUsersDB(db);
+      } else if (phone !== 'admin') {
+        db[phone] = { name, phone, pass: "1234", city, address, ordersCount: 1, isAdmin: false };
         localStorage.setItem('hudas_current_phone', phone);
+        saveUsersDB(db);
       }
-      saveUsersDB(db);
       renderAccountUI();
 
       let orderText = `*طلب جديد - Huda's Abaya* 🛍️\n`;
@@ -1450,6 +1530,11 @@
 
       const whatsappUrl = `https://wa.me/201031791517?text=${encodeURIComponent(orderText)}`;
       window.open(whatsappUrl, '_blank');
+      
+      // تفريغ السلة بعد إرسال الطلب
+      cart = [];
+      updateCartUI();
+      closeAllDrawers();
     }
 
     function openDrawer(drawerId) {
@@ -1465,33 +1550,75 @@
 
     renderAccountUI();
     applyFiltersAndSort();
-
-   </script>
+  </script>
     
-   <!-- JavaScript الخاص بزرار الوضع الليلي/النهاري -->
- <script>
-  const themeToggleBtn = document.getElementById('themeToggle');
-  const bodyElement = document.body;
+  <!-- JavaScript الخاص بزرار الوضع الليلي/النهاري -->
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const bodyElement = document.body;
 
-  // التحقق من الاختيار المحفوظ مسبقاً
-  if (localStorage.getItem('theme') === 'dark') {
-    bodyElement.classList.add('dark-mode');
-    if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
-  }
+    if (localStorage.getItem('theme') === 'dark') {
+      bodyElement.classList.add('dark-mode');
+      if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
+    }
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      bodyElement.classList.toggle('dark-mode');
-      
-      if (bodyElement.classList.contains('dark-mode')) {
-        themeToggleBtn.textContent = '☀️';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        themeToggleBtn.textContent = '🌙';
-        localStorage.setItem('theme', 'light');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        bodyElement.classList.toggle('dark-mode');
+        
+        if (bodyElement.classList.contains('dark-mode')) {
+          themeToggleBtn.textContent = '☀️';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          themeToggleBtn.textContent = '🌙';
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    }
+    // تعديل اسم، سعر، أو كمية منتج موجود
+    function updateProduct(productId) {
+      const id = String(productId);
+      const titleInput = document.getElementById(`editTitle_${id}`);
+      const priceInput = document.getElementById(`editPrice_${id}`);
+      const stockInput = document.getElementById(`editStock_${id}`);
+
+      if (!titleInput || !priceInput || !stockInput) {
+        alert("حدث خطأ أثناء قراءة حقول التعديل، يرجى إعادة تحميل الصفحة.");
+        return;
       }
-    });
-  }
-</script>
+
+      const newTitle = titleInput.value.trim();
+      const newPrice = parseFloat(priceInput.value);
+      const newStock = parseInt(stockInput.value);
+
+      if (!newTitle || isNaN(newPrice) || isNaN(newStock) || newStock < 0) {
+        alert("من فضلك أدخلي اسماً صحيحاً وأرقاماً صحيحة للسعر والكمية.");
+        return;
+      }
+
+      const prod = productsData.find(p => String(p.id) === id);
+      if (prod) {
+        prod.title = newTitle;
+        prod.price = newPrice;
+        prod.stock = newStock;
+        saveProductsData(productsData);
+        applyFiltersAndSort();
+        renderAccountUI();
+        alert("تم تحديث بيانات المنتج بنجاح!");
+      } else {
+        alert("لم يتم العثور على المنتج!");
+      }
+    }
+
+    // حذف منتج من المتجر
+    function deleteProduct(productId) {
+      if (!confirm("هل أنتِ متأكدة من حذف هذا المنتج نهائياً؟")) return;
+      const id = String(productId);
+      productsData = productsData.filter(p => String(p.id) !== id);
+      saveProductsData(productsData);
+      applyFiltersAndSort();
+      renderAccountUI();
+    }
+  </script>
 </body>
 </html>
