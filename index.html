@@ -11,7 +11,7 @@
   
   <style>
     :root {
-      --typeHeaderPrimary: 'Oranienbaum', serif;
+      --typeHeaderPrimary: 'Oranienbaum', 'Cairo', serif;
       --typeBasePrimary: 'Trirong', 'Cairo', serif;
       --colorBody: #ffffff;
       --colorText: #111111;
@@ -30,6 +30,18 @@
       font-size: 16px;
       line-height: 1.5;
       overflow-x: hidden;
+    }
+
+    html[lang="ar"] body,
+    html[lang="ar"] .collection-title,
+    html[lang="ar"] .bottom-size-title,
+    html[lang="ar"] .drawer-title,
+    html[lang="ar"] .quick-add-btn,
+    html[lang="ar"] .filter-trigger-btn,
+    html[lang="ar"] .size-guide-trigger,
+    html[lang="ar"] .sort-select {
+      font-family: 'Cairo', sans-serif !important;
+      letter-spacing: 0 !important;
     }
 
     /* Marquee Announcement Bar */
@@ -76,6 +88,7 @@
       flex: 1;
     }
 
+    .header-left { justify-content: flex-start; }
     .header-right { justify-content: flex-end; }
 
     .icon-btn {
@@ -93,6 +106,36 @@
     }
 
     .icon-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+
+    /* زرار تبديل اللغة بجانب المنيو */
+    .header-lang-btn {
+      background: transparent;
+      border: 1px solid var(--colorBorder);
+      padding: 5px 11px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--colorText);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .header-lang-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-mode .header-lang-btn {
+      border-color: #444;
+      color: #ffffff;
+    }
+
+    body.dark-mode .header-lang-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
 
     /* أيقونة قائمة المسجلين للأدمن */
     .admin-users-icon-btn {
@@ -597,7 +640,7 @@
       max-width: 900px;
       margin: 0 auto;
       border-collapse: collapse;
-      text-align: left;
+      text-align: start;
     }
 
     .bottom-size-table th, .bottom-size-table td {
@@ -1158,7 +1201,7 @@
     @media (max-width: 768px) {
       .site-header { padding: 10px 15px; }
       .site-logo { font-size: 20px !important; }
-      .header-right { gap: 8px !important; }
+      .header-left, .header-right { gap: 8px !important; }
       .collection-header { padding: 100px 15px !important; margin-bottom: 15px; }
       .collection-title { font-size: 24px !important; }
       .collection-toolbar { padding: 10px 15px; flex-direction: column; align-items: stretch; gap: 10px; }
@@ -1193,8 +1236,8 @@
     @media (max-width: 768px) {
       .site-header { padding: 10px 12px !important; }
       .site-logo { font-size: 17px !important; white-space: nowrap; }
-      .header-right { gap: 6px !important; }
-      .header-theme-btn { padding: 4px 8px !important; font-size: 12px !important; }
+      .header-left, .header-right { gap: 6px !important; }
+      .header-theme-btn, .header-lang-btn { padding: 4px 8px !important; font-size: 11px !important; }
       .user-badge-name { display: none !important; }
       .collection-header { padding: 90px 15px !important; }
     }
@@ -1223,6 +1266,8 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
+
+      <button id="langToggle" type="button" class="header-lang-btn" onclick="toggleSiteLanguage()" aria-label="Switch Language">AR</button>
     </div>
 
     <a href="#" class="site-logo" id="siteLogoText">Huda's Abaya</a>
@@ -1359,8 +1404,8 @@
       <button class="icon-btn" onclick="closeAllDrawers()">✕</button>
     </div>
     <div class="drawer-body">
-      <div style="font-family:'Cairo',sans-serif; direction:ltr; text-align:left; font-size:14px; color:inherit;">
-        <p style="margin-bottom:15px;">Find your perfect fit by referencing our standard abaya measurements below:</p>
+      <div style="font-family:'Cairo',sans-serif; font-size:14px; color:inherit;">
+        <p id="drawerSizeDescText" style="margin-bottom:15px;">Find your perfect fit by referencing our standard abaya measurements below:</p>
         <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
           <thead>
             <tr style="background:rgba(0,0,0,0.05);">
@@ -1388,14 +1433,14 @@
     </div>
     <div class="drawer-body">
       <div class="filter-group">
-        <span class="filter-group-title">Availability</span>
+        <span class="filter-group-title" id="filterAvailTitle">Availability</span>
         <label class="filter-option">
-          <input type="checkbox" id="filterInStock" onchange="applyFiltersAndSort()"> In stock only
+          <input type="checkbox" id="filterInStock" onchange="applyFiltersAndSort()"> <span id="filterInStockText">In stock only</span>
         </label>
       </div>
 
       <div class="filter-group">
-        <span class="filter-group-title">Price (LE)</span>
+        <span class="filter-group-title" id="filterPriceTitle">Price (LE)</span>
         <div class="price-inputs">
           <input type="number" id="minPrice" placeholder="From (0)" oninput="applyFiltersAndSort()">
           <span>-</span>
@@ -1404,7 +1449,7 @@
       </div>
 
       <div class="filter-group">
-        <span class="filter-group-title">Size</span>
+        <span class="filter-group-title" id="filterSizeTitle">Size</span>
         <label class="filter-option"><input type="checkbox" class="size-filter" value="S" onchange="applyFiltersAndSort()"> S</label>
         <label class="filter-option"><input type="checkbox" class="size-filter" value="M" onchange="applyFiltersAndSort()"> M</label>
         <label class="filter-option"><input type="checkbox" class="size-filter" value="L" onchange="applyFiltersAndSort()"> L</label>
@@ -1412,23 +1457,23 @@
       </div>
 
       <div class="filter-group">
-        <span class="filter-group-title">Color</span>
+        <span class="filter-group-title" id="filterColorTitle">Color</span>
         <div class="color-swatches">
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLACK" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#111;"></span> BLACK</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="STONEGRAY" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#d8c8b8;"></span> STONEGRAY</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#1b2a4a;"></span> BLUE</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="GREEN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4b5320;"></span> GREEN</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="WHITE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#fffffe; border:1px solid #ccc;"></span> WHITE</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="RED" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#ec1010;"></span> RED</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BROWN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#703505;"></span> BROWN</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BABY BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4a78b4;"></span> BABY BLUE</label>
-          <label class="swatch-label"><input type="checkbox" class="color-filter" value="PURPLE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#641b54;"></span> PURPLE</label>           
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLACK" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#111;"></span> <span data-color-name="BLACK">BLACK</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="STONEGRAY" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#d8c8b8;"></span> <span data-color-name="STONEGRAY">STONEGRAY</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#1b2a4a;"></span> <span data-color-name="BLUE">BLUE</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="GREEN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4b5320;"></span> <span data-color-name="GREEN">GREEN</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="WHITE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#fffffe; border:1px solid #ccc;"></span> <span data-color-name="WHITE">WHITE</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="RED" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#ec1010;"></span> <span data-color-name="RED">RED</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BROWN" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#703505;"></span> <span data-color-name="BROWN">BROWN</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="BABY BLUE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#4a78b4;"></span> <span data-color-name="BABY BLUE">BABY BLUE</span></label>
+          <label class="swatch-label"><input type="checkbox" class="color-filter" value="PURPLE" onchange="applyFiltersAndSort()"><span class="swatch-dot" style="background:#641b54;"></span> <span data-color-name="PURPLE">PURPLE</span></label>           
         </div>
       </div>
     </div>
     <div class="drawer-footer">
-      <button class="checkout-btn" onclick="closeAllDrawers()">Apply</button>
-      <button class="secondary-btn" onclick="resetAllFilters()">Reset</button>
+      <button class="checkout-btn" id="filterApplyBtn" onclick="closeAllDrawers()">Apply</button>
+      <button class="secondary-btn" id="filterResetBtn" onclick="resetAllFilters()">Reset</button>
     </div>
   </aside>
 
@@ -1583,6 +1628,314 @@
     let siteSettings = getLocalSiteSettingsCache();
     let adminTabMode = 'products';
 
+    const siteTranslations = {
+      en: {
+        btnText: "AR",
+        menuTitle: "Menu",
+        sizeGuideBtn: "📏 Size Guide",
+        sizeGuideTitle: "Size Guide",
+        sizeGuideDesc: "Find your perfect fit by referencing our standard abaya measurements below based on height and weight:",
+        drawerSizeDesc: "Find your perfect fit by referencing our standard abaya measurements below:",
+        heroTitle: "Abayas",
+        heroSubtitle: "Signature Collection — Cash on Delivery",
+        filterBtn: "Filter",
+        filterTitle: "Filter",
+        availTitle: "Availability",
+        inStockOnly: "In stock only",
+        priceLabel: "Price (LE)",
+        fromPlaceholder: "From (0)",
+        toPlaceholder: "To (3000)",
+        sizeLabel: "Size",
+        colorLabel: "Color",
+        applyBtn: "Apply",
+        resetBtn: "Reset",
+        accountTitle: "Account",
+        cartTitle: "Your Bag",
+        emptyCart: "Your bag is currently empty.",
+        subtotal: "Subtotal",
+        checkoutBtn: "تأكيد الطلب (الدفع عند الاستلام)",
+        sortFeatured: "Featured",
+        sortPriceAsc: "Price, low to high",
+        sortPriceDesc: "Price, high to low",
+        sortTitleAsc: "Alphabetically, A-Z",
+        thSize: "Size",
+        thHeight: "Height",
+        thWeight: "Weight",
+        thShoulder: "Shoulder Width",
+        productsWord: "products",
+        logInText: "Log in",
+        addToBag: "+ Add to Bag",
+        soldOut: "Sold Out",
+        chooseSizeFirst: "اختر المقاس أولاً:",
+        allSizesSoldOut: "جميع المقاسات نفدت:",
+        noMatchFilter: "No products match your filter criteria.",
+        loadingProducts: "Loading products...",
+        footerCopy: "© 2026 Huda's Abaya. All rights reserved. Cash on Delivery Only.",
+        navHome: "Home",
+        navAllAbayas: "All Abayas",
+        navSizeGuide: "Size Guide",
+        navMyAccount: "My Account & Orders",
+        navInstagram: "Instagram",
+        navFacebook: "Facebook",
+        navTiktok: "Tiktok",
+        navWhatsapp: "Contact Us (WhatsApp)"
+      },
+      ar: {
+        btnText: "EN",
+        menuTitle: "القائمة",
+        sizeGuideBtn: "📏 دليل المقاسات",
+        sizeGuideTitle: "دليل المقاسات",
+        sizeGuideDesc: "اختاري مقاسك المناسب بسهولة من خلال جدول قياسات العبايات القياسية حسب الطول والوزن:",
+        drawerSizeDesc: "اختاري مقاسك المناسب من خلال جدول قياسات العبايات أدناه:",
+        heroTitle: "العبايات",
+        heroSubtitle: "التشكيلة المميزة — الدفع عند الاستلام",
+        filterBtn: "تصفية",
+        filterTitle: "تصفية المنتجات",
+        availTitle: "التوفر",
+        inStockOnly: "المتوفر فقط",
+        priceLabel: "السعر (ج.م)",
+        fromPlaceholder: "من (0)",
+        toPlaceholder: "إلى (3000)",
+        sizeLabel: "المقاس",
+        colorLabel: "اللون",
+        applyBtn: "تطبيق",
+        resetBtn: "إعادة ضبط",
+        accountTitle: "الحساب",
+        cartTitle: "حقيبة التسوق",
+        emptyCart: "حقيبة التسوق فارغة حالياً.",
+        subtotal: "الإجمالي الفرعي",
+        checkoutBtn: "تأكيد الطلب (الدفع عند الاستلام)",
+        sortFeatured: "المميزة",
+        sortPriceAsc: "السعر: من الأقل للأعلى",
+        sortPriceDesc: "السعر: من الأعلى للأقل",
+        sortTitleAsc: "أبجدياً: أ - ي",
+        thSize: "المقاس",
+        thHeight: "الطول",
+        thWeight: "الوزن",
+        thShoulder: "عرض الكتف",
+        productsWord: "منتج",
+        logInText: "دخول",
+        addToBag: "+ أضف للحقيبة",
+        soldOut: "نفدت الكمية",
+        chooseSizeFirst: "اختر المقاس أولاً:",
+        allSizesSoldOut: "جميع المقاسات نفدت:",
+        noMatchFilter: "لا توجد منتجات مطابقة لخيارات التصفية.",
+        loadingProducts: "جاري تحميل المنتجات...",
+        footerCopy: "© 2026 Huda's Abaya. جميع الحقوق محفوظة. الدفع عند الاستلام فقط.",
+        navHome: "الرئيسية",
+        navAllAbayas: "كل العبايات",
+        navSizeGuide: "دليل المقاسات",
+        navMyAccount: "حسابي وطلباتي",
+        navInstagram: "إنستجرام",
+        navFacebook: "فيسبوك",
+        navTiktok: "تيك توك",
+        navWhatsapp: "تواصل معنا (واتساب)"
+      }
+    };
+
+    const colorNamesAr = {
+      "BLACK": "أسود",
+      "STONEGRAY": "رمادي حجري",
+      "BLUE": "أزرق",
+      "GREEN": "أخضر",
+      "WHITE": "أبيض",
+      "RED": "أحمر",
+      "BROWN": "بني",
+      "BABY BLUE": "لبني",
+      "PURPLE": "بنفسجي"
+    };
+
+    function getCurrentLang() {
+      return localStorage.getItem('hudas_lang') === 'ar' ? 'ar' : 'en';
+    }
+
+    function applySiteLanguage(lang) {
+      const safeLang = lang === 'ar' ? 'ar' : 'en';
+      const t = siteTranslations[safeLang];
+      const cfg = normalizeSiteSettings(siteSettings);
+      localStorage.setItem('hudas_lang', safeLang);
+
+      document.documentElement.lang = safeLang;
+      document.documentElement.dir = safeLang === 'ar' ? 'rtl' : 'ltr';
+
+      const langBtn = document.getElementById('langToggle');
+      if (langBtn) langBtn.textContent = t.btnText;
+
+      const heroTitleEl = document.getElementById('collectionTitleText');
+      if (heroTitleEl) {
+        heroTitleEl.textContent = (safeLang === 'ar' && cfg.heroTitle === defaultSiteSettings.heroTitle)
+          ? t.heroTitle
+          : cfg.heroTitle;
+      }
+
+      const heroSubEl = document.getElementById('collectionSubtitleText');
+      if (heroSubEl) {
+        heroSubEl.textContent = (safeLang === 'ar' && cfg.heroSubtitle === defaultSiteSettings.heroSubtitle)
+          ? t.heroSubtitle
+          : cfg.heroSubtitle;
+      }
+
+      const bottomTitle = document.getElementById('bottomSizeTitleText');
+      if (bottomTitle) {
+        bottomTitle.textContent = (safeLang === 'ar' && cfg.sizeGuideTitle === defaultSiteSettings.sizeGuideTitle)
+          ? t.sizeGuideTitle
+          : cfg.sizeGuideTitle;
+      }
+
+      const bottomDesc = document.getElementById('bottomSizeDescText');
+      if (bottomDesc) {
+        bottomDesc.textContent = (safeLang === 'ar' && cfg.sizeGuideDesc === defaultSiteSettings.sizeGuideDesc)
+          ? t.sizeGuideDesc
+          : cfg.sizeGuideDesc;
+      }
+
+      const drawerSizeDesc = document.getElementById('drawerSizeDescText');
+      if (drawerSizeDesc) drawerSizeDesc.textContent = t.drawerSizeDesc;
+
+      const footerCopy = document.getElementById('footerCopyText');
+      if (footerCopy) {
+        footerCopy.textContent = (safeLang === 'ar' && cfg.footerCopy === defaultSiteSettings.footerCopy)
+          ? t.footerCopy
+          : cfg.footerCopy;
+      }
+
+      const waHref = `https://wa.me/${cfg.whatsappNumber}`;
+      const footerSocials = document.getElementById('footerSocials');
+      if (footerSocials) {
+        footerSocials.innerHTML = `
+          <a href="${cfg.instagramUrl}" target="_blank">${t.navInstagram}</a>
+          <a href="${cfg.facebookUrl}" target="_blank">${t.navFacebook}</a>
+          <a href="${cfg.tiktokUrl}" target="_blank">${t.navTiktok}</a>
+          <a href="${waHref}" target="_blank">WhatsApp</a>
+        `;
+      }
+
+      const navList = document.getElementById('drawerNavList');
+      if (navList) {
+        navList.innerHTML = `
+          <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">${t.navHome}</a></li>
+          <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">${t.navAllAbayas}</a></li>
+          <li><a href="#" onclick="closeAllDrawers(); openDrawer('sizeGuideDrawer');">${t.navSizeGuide}</a></li>
+          <li><a href="#" onclick="closeAllDrawers(); openDrawer('accountDrawer');">${t.navMyAccount}</a></li>
+          <li><a href="${cfg.instagramUrl}" target="_blank">${t.navInstagram}</a></li>
+          <li><a href="${cfg.facebookUrl}" target="_blank">${t.navFacebook}</a></li>
+          <li><a href="${cfg.tiktokUrl}" target="_blank">${t.navTiktok}</a></li>
+          <li><a href="${waHref}" target="_blank">${t.navWhatsapp}</a></li>
+        `;
+      }
+
+      document.querySelectorAll('[data-color-name]').forEach(span => {
+        const rawColor = span.getAttribute('data-color-name');
+        span.textContent = safeLang === 'ar' ? (colorNamesAr[rawColor] || rawColor) : rawColor;
+      });
+
+      const menuDrawerTitle = document.querySelector('#menuDrawer .drawer-title');
+      if (menuDrawerTitle) menuDrawerTitle.textContent = t.menuTitle;
+
+      const sizeGuideDrawerTitle = document.querySelector('#sizeGuideDrawer .drawer-title');
+      if (sizeGuideDrawerTitle) sizeGuideDrawerTitle.textContent = t.sizeGuideTitle;
+
+      const filterDrawerTitle = document.querySelector('#filterDrawer .drawer-title');
+      if (filterDrawerTitle) filterDrawerTitle.textContent = t.filterTitle;
+
+      const accountDrawerTitle = document.querySelector('#accountDrawer .drawer-title');
+      if (accountDrawerTitle) accountDrawerTitle.textContent = t.accountTitle;
+
+      const cartDrawerTitle = document.querySelector('#cartDrawer .drawer-title');
+      if (cartDrawerTitle) cartDrawerTitle.textContent = t.cartTitle;
+
+      const sizeGuideBtn = document.querySelector('.size-guide-trigger');
+      if (sizeGuideBtn) sizeGuideBtn.textContent = t.sizeGuideBtn;
+
+      const filterBtn = document.querySelector('.filter-trigger-btn');
+      if (filterBtn) {
+        filterBtn.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+          ${t.filterBtn}
+        `;
+      }
+
+      const filterAvailTitle = document.getElementById('filterAvailTitle');
+      if (filterAvailTitle) filterAvailTitle.textContent = t.availTitle;
+
+      const filterInStockText = document.getElementById('filterInStockText');
+      if (filterInStockText) filterInStockText.textContent = t.inStockOnly;
+
+      const filterPriceTitle = document.getElementById('filterPriceTitle');
+      if (filterPriceTitle) filterPriceTitle.textContent = t.priceLabel;
+
+      const minPriceEl = document.getElementById('minPrice');
+      if (minPriceEl) minPriceEl.placeholder = t.fromPlaceholder;
+
+      const maxPriceEl = document.getElementById('maxPrice');
+      if (maxPriceEl) maxPriceEl.placeholder = t.toPlaceholder;
+
+      const filterSizeTitle = document.getElementById('filterSizeTitle');
+      if (filterSizeTitle) filterSizeTitle.textContent = t.sizeLabel;
+
+      const filterColorTitle = document.getElementById('filterColorTitle');
+      if (filterColorTitle) filterColorTitle.textContent = t.colorLabel;
+
+      const filterApplyBtn = document.getElementById('filterApplyBtn');
+      if (filterApplyBtn) filterApplyBtn.textContent = t.applyBtn;
+
+      const filterResetBtn = document.getElementById('filterResetBtn');
+      if (filterResetBtn) filterResetBtn.textContent = t.resetBtn;
+
+      const sortSelect = document.getElementById('sortSelect');
+      if (sortSelect && sortSelect.options.length >= 4) {
+        sortSelect.options[0].textContent = t.sortFeatured;
+        sortSelect.options[1].textContent = t.sortPriceAsc;
+        sortSelect.options[2].textContent = t.sortPriceDesc;
+        sortSelect.options[3].textContent = t.sortTitleAsc;
+      }
+
+      const bottomHeaders = document.querySelectorAll('.bottom-size-table thead th');
+      if (bottomHeaders.length >= 4) {
+        bottomHeaders[0].textContent = t.thSize;
+        bottomHeaders[1].textContent = t.thHeight;
+        bottomHeaders[2].textContent = t.thWeight;
+        bottomHeaders[3].textContent = t.thShoulder;
+      }
+
+      const drawerHeaders = document.querySelectorAll('#sizeGuideDrawer table thead th');
+      if (drawerHeaders.length >= 3) {
+        drawerHeaders[0].textContent = t.thSize;
+        drawerHeaders[1].textContent = t.thHeight;
+        drawerHeaders[2].textContent = t.thWeight;
+      }
+
+      const subtotalLabel = document.querySelector('#cartFooter .subtotal-row span:first-child');
+      if (subtotalLabel) subtotalLabel.textContent = t.subtotal;
+
+      const checkoutBtn = document.querySelector('#cartFooter .checkout-btn');
+      if (checkoutBtn) checkoutBtn.textContent = t.checkoutBtn;
+
+      const currentUser = getCurrentUser();
+      const headerLabel = document.getElementById('headerUserLabel');
+      if (headerLabel && !currentUser) {
+        headerLabel.textContent = t.logInText;
+      }
+
+      if (typeof applyFiltersAndSort === 'function') {
+        applyFiltersAndSort();
+      }
+      if (typeof updateCartUI === 'function') {
+        updateCartUI();
+      }
+    }
+
+    function toggleSiteLanguage() {
+      const nextLang = getCurrentLang() === 'ar' ? 'en' : 'ar';
+      applySiteLanguage(nextLang);
+    }
+
     function applySiteSettingsToDOM() {
       const cfg = normalizeSiteSettings(siteSettings);
       siteSettings = cfg;
@@ -1598,23 +1951,11 @@
         heroEl.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${heroImg}')`;
       }
 
-      const heroTitleEl = document.getElementById('collectionTitleText');
-      if (heroTitleEl) heroTitleEl.textContent = cfg.heroTitle;
-
-      const heroSubEl = document.getElementById('collectionSubtitleText');
-      if (heroSubEl) heroSubEl.textContent = cfg.heroSubtitle;
-
       const marqueeTrack = document.getElementById('marqueeTrack');
       if (marqueeTrack) {
         const repeated = [...cfg.marqueeMessages, ...cfg.marqueeMessages.slice(0, 2)];
         marqueeTrack.innerHTML = repeated.map(msg => `<span>${msg}</span>`).join('');
       }
-
-      const bottomTitle = document.getElementById('bottomSizeTitleText');
-      if (bottomTitle) bottomTitle.textContent = cfg.sizeGuideTitle;
-
-      const bottomDesc = document.getElementById('bottomSizeDescText');
-      if (bottomDesc) bottomDesc.textContent = cfg.sizeGuideDesc;
 
       const bottomBody = document.getElementById('bottomSizeTableBody');
       if (bottomBody) {
@@ -1632,36 +1973,10 @@
         }).join('');
       }
 
-      const waHref = `https://wa.me/${cfg.whatsappNumber}`;
-      const footerSocials = document.getElementById('footerSocials');
-      if (footerSocials) {
-        footerSocials.innerHTML = `
-          <a href="${cfg.instagramUrl}" target="_blank">Instagram</a>
-          <a href="${cfg.facebookUrl}" target="_blank">Facebook</a>
-          <a href="${cfg.tiktokUrl}" target="_blank">Tiktok</a>
-          <a href="${waHref}" target="_blank">WhatsApp</a>
-        `;
-      }
-
-      const navList = document.getElementById('drawerNavList');
-      if (navList) {
-        navList.innerHTML = `
-          <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">Home</a></li>
-          <li><a href="#" onclick="resetAllFilters(); closeAllDrawers();">All Abayas</a></li>
-          <li><a href="#" onclick="closeAllDrawers(); openDrawer('sizeGuideDrawer');">Size Guide</a></li>
-          <li><a href="#" onclick="closeAllDrawers(); openDrawer('accountDrawer');">My Account & Orders</a></li>
-          <li><a href="${cfg.instagramUrl}" target="_blank">Instagram</a></li>
-          <li><a href="${cfg.facebookUrl}" target="_blank">Facebook</a></li>
-          <li><a href="${cfg.tiktokUrl}" target="_blank">Tiktok</a></li>
-          <li><a href="${waHref}" target="_blank">Contact Us (WhatsApp)</a></li>
-        `;
-      }
-
       const footerBrand = document.getElementById('footerBrandText');
       if (footerBrand) footerBrand.textContent = cfg.brandName;
 
-      const footerCopy = document.getElementById('footerCopyText');
-      if (footerCopy) footerCopy.textContent = cfg.footerCopy;
+      applySiteLanguage(getCurrentLang());
     }
 
     async function pushSiteSettingsToFirebase(cfg) {
@@ -1802,8 +2117,9 @@
 
     async function loadProductsFromFirebase() {
       const grid = document.getElementById('productsGrid');
+      const t = siteTranslations[getCurrentLang()];
       if (grid && productsData.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:#777;">جاري تحميل المنتجات...</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:#777;">${t.loadingProducts}</p>`;
       }
 
       try {
@@ -1946,6 +2262,7 @@
       if (qty <= 0) return;
 
       selectedSizeByProduct[String(productId)] = size;
+      const t = siteTranslations[getCurrentLang()];
 
       const card = document.querySelector(`.product-card[data-product-id="${productId}"]`);
       if (card) {
@@ -1954,7 +2271,7 @@
         });
         const addBtn = card.querySelector('.quick-add-btn');
         if (addBtn && !addBtn.disabled) {
-          addBtn.textContent = `+ Add to Bag (${size})`;
+          addBtn.textContent = `${t.addToBag} (${size})`;
         }
       }
     }
@@ -1982,7 +2299,8 @@
       else if (sortValue === 'price-desc') filtered.sort((a, b) => b.price - a.price);
       else if (sortValue === 'title-asc') filtered.sort((a, b) => a.title.localeCompare(b.title));
 
-      document.getElementById('productCount').textContent = `${filtered.length} products`;
+      const t = siteTranslations[getCurrentLang()];
+      document.getElementById('productCount').textContent = `${filtered.length} ${t.productsWord}`;
       renderProductsGrid(filtered);
     }
 
@@ -2007,8 +2325,10 @@
     function renderProductsGrid(list) {
       const grid = document.getElementById('productsGrid');
       if (!grid) return;
+      const t = siteTranslations[getCurrentLang()];
+
       if (list.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:#777;">No products match your filter criteria.</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:#777;">${t.noMatchFilter}</p>`;
         return;
       }
 
@@ -2060,7 +2380,7 @@
 
         const sizesSectionHTML = `
           <div class="size-selector-box">
-            <span class="size-selector-label">${inStock ? 'اختر المقاس أولاً:' : 'جميع المقاسات نفدت:'}</span>
+            <span class="size-selector-label">${inStock ? t.chooseSizeFirst : t.allSizesSoldOut}</span>
             <div class="size-options-row">
               ${sizeButtonsHTML}
             </div>
@@ -2072,13 +2392,13 @@
           : '';
 
         const addBtnLabel = !inStock
-          ? 'Sold Out'
-          : (validChosenSize ? `+ Add to Bag (${validChosenSize})` : '+ Add to Bag');
+          ? t.soldOut
+          : (validChosenSize ? `${t.addToBag} (${validChosenSize})` : t.addToBag);
 
         return `
           <div class="product-card" data-product-id="${normProd.id}">
             <div class="product-image-wrap">
-              ${!inStock ? '<span class="sold-out-tag">Sold Out</span>' : ''}
+              ${!inStock ? `<span class="sold-out-tag">${t.soldOut}</span>` : ''}
               <img src="${firstImg}" class="main-product-img" alt="${normProd.title}" onclick="openProductLightbox(${normProd.id}, this.src)">
             </div>
             ${thumbsHTML}
@@ -2431,6 +2751,7 @@
       const user = getCurrentUser();
       const body = document.getElementById('accountBody');
       const headerLabel = document.getElementById('headerUserLabel');
+      const t = siteTranslations[getCurrentLang()];
 
       syncAdminHeaderButton(Boolean(user && user.isAdmin));
 
@@ -2590,7 +2911,7 @@
           </div>
         `;
       } else {
-        headerLabel.textContent = 'Log in';
+        headerLabel.textContent = t.logInText;
         body.innerHTML = `
           <div class="auth-box">
             <div class="auth-tabs">
@@ -2842,13 +3163,14 @@
       const footer = document.getElementById('cartFooter');
       const subtotalEl = document.getElementById('cartSubtotal');
       const user = getCurrentUser();
+      const t = siteTranslations[getCurrentLang()];
 
       const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
       const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       badge.textContent = totalItems;
 
       if (cart.length === 0) {
-        body.innerHTML = `<p style="text-align:center; color:#777; margin-top:40px;">Your bag is currently empty.</p>`;
+        body.innerHTML = `<p style="text-align:center; color:#777; margin-top:40px;">${t.emptyCart}</p>`;
         footer.style.display = 'none';
         return;
       }
